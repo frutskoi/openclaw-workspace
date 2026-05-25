@@ -1,0 +1,43 @@
+# Sensitive credentials - NEVER commit
+google-creds/
+*.json
+client_secret.json
+token.json
+oauth_state.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Memory files (too large for git)
+memory/*.md
+!memory/.gitkeep
+
+# Session/ephemeral data
+.openclaw/
+*.log
+*.pid
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary
+*.tmp
+*.bak
+*.backup
