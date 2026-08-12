@@ -1,0 +1,9 @@
+{
+  "client_id": "",
+  "api_key": "",
+  "sandbox": false,
+  "default_currency": "RUB",
+  "rate_limit_buffer": 0.8,
+  "retry_attempts": 3,
+  "retry_delay": 1
+}

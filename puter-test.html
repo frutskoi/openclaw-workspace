@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puter.js Test - OpenClaw</title>
+    <script src="https://js.puter.com/v2/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #output {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .success { color: #4CAF50; }
+        .error { color: #f44336; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Puter.js Test - OpenClaw</h1>
+        <p>Проверка работы Puter.js API</p>
+
+        <!-- Авторизация -->
+        <div class="section">
+            <h2>🔑 Авторизация</h2>
+            <button onclick="signIn()">Войти в Puter</button>
+            <button onclick="checkAuth()">Проверить статус</button>
+        </div>
+
+        <!-- Файловая система -->
+        <div class="section">
+            <h2>📁 Файловая система</h2>
+            <input type="text" id="filename" placeholder="Имя файла (например: test.txt)" style="padding: 8px; margin: 5px;">
+            <br><br>
+            <textarea id="filecontent" placeholder="Содержимое файла..."></textarea>
+            <br>
+            <button onclick="writeFile()">Записать файл</button>
+            <button onclick="readFile()">Прочитать файл</button>
+            <button onclick="listFiles()">Список файлов</button>
+        </div>
+
+        <!-- AI Чат -->
+        <div class="section">
+            <h2>🤖 AI Чат</h2>
+            <textarea id="chatMessage" placeholder="Сообщение для AI (например: Что такое OpenClaw?)"></textarea>
+            <br>
+            <button onclick="chatWithAI()">Отправить</button>
+        </div>
+
+        <!-- Key-Value Store -->
+        <div class="section">
+            <h2>🔑 Key-Value Store</h2>
+            <input type="text" id="kvKey" placeholder="Ключ" style="padding: 8px; margin: 5px;">
+            <input type="text" id="kvValue" placeholder="Значение" style="padding: 8px; margin: 5px;">
+            <br><br>
+            <button onclick="saveKV()">Сохранить</button>
+            <button onclick="getKV()">Получить</button>
+        </div>
+
+        <!-- Вывод -->
+        <div id="output">
+            <p>💡 Результаты будут отображаться здесь...</p>
+        </div>
+    </div>
+
+    <script>
+        // Функции Puter.js
+
+        async function signIn() {
+            try {
+                await puter.auth.signIn().then((res) => {
+                    output('✅ Успешный вход!', 'success');
+                    console.log('Signed in', res);
+                });
+            } catch (error) {
+                output('❌ Ошибка входа: ' + error.message, 'error');
+            }
+        }
+
+        async function checkAuth() {
+            try {
+                const isAuth = await puter.auth.isSignedIn();
+                if (isAuth) {
+                    output('✅ Вы авторизованы в Puter', 'success');
+                } else {
+                    output('❌ Вы не авторизованы', 'error');
+                }
+            } catch (error) {
+                output('❌ Ошибка проверки: ' + error.message, 'error');
+            }
+        }
+
+        async function writeFile() {
+            const filename = document.getElementById('filename').value;
+            const content = document.getElementById('filecontent').value;
+
+            if (!filename || !content) {
+                output('❌ Укажите имя файла и содержимое', 'error');
+                return;
+            }
+
+            try {
+                await puter.fs.write(filename, content).then((file) => {
+                    output(`✅ Файл создан: ${file.path}`, 'success');
+                    console.log('File created', file);
+                });
+            } catch (error) {
+                output('❌ Ошибка записи: ' + error.message, 'error');
+            }
+        }
+
+        async function readFile() {
+            const filename = document.getElementById('filename').value;
+
+            if (!filename) {
+                output('❌ Укажите имя файла', 'error');
+                return;
+            }
+
+            try {
+                const blob = await puter.fs.read(filename);
+                const content = await blob.text();
+                output(`📄 Содержимое файла:\n${content}`, 'success');
+            } catch (error) {
+                output('❌ Ошибка чтения: ' + error.message, 'error');
+            }
+        }
+
+        async function listFiles() {
+            try {
+                const files = await puter.fs.readdir('/');
+                const fileList = files.map(f => f.name).join(', ');
+                output(`📁 Файлы: ${fileList}`, 'success');
+            } catch (error) {
+                output('❌ Ошибка списка: ' + error.message, 'error');
+            }
+        }
+
+        async function chatWithAI() {
+            const message = document.getElementById('chatMessage').value;
+
+            if (!message) {
+                output('❌ Укажите сообщение для AI', 'error');
+                return;
+            }
+
+            try {
+                output('🤖 Отправка сообщения...', 'success');
+                const response = await puter.ai.chat(message);
+                output(`🤖 Ответ AI:\n${response}`, 'success');
+            } catch (error) {
+                output('❌ Ошибка AI: ' + error.message, 'error');
+            }
+        }
+
+        async function saveKV() {
+            const key = document.getElementById('kvKey').value;
+            const value = document.getElementById('kvValue').value;
+
+            if (!key || !value) {
+                output('❌ Укажите ключ и значение', 'error');
+                return;
+            }
+
+            try {
+                await puter.kv.set(key, value);
+                output(`✅ Сохранено: ${key} = ${value}`, 'success');
+            } catch (error) {
+                output('❌ Ошибка сохранения: ' + error.message, 'error');
+            }
+        }
+
+        async function getKV() {
+            const key = document.getElementById('kvKey').value;
+
+            if (!key) {
+                output('❌ Укажите ключ', 'error');
+                return;
+            }
+
+            try {
+                const value = await puter.kv.get(key);
+                if (value) {
+                    output(`📖 Значение: ${value}`, 'success');
+                } else {
+                    output(`📖 Ключ '${key}' не найден`, 'error');
+                }
+            } catch (error) {
+                output('❌ Ошибка получения: ' + error.message, 'error');
+            }
+        }
+
+        // Вспомогательная функция для вывода
+        function output(message, type = '') {
+            const outputDiv = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+
+            let colorClass = '';
+            if (type === 'success') colorClass = 'success';
+            if (type === 'error') colorClass = 'error';
+
+            outputDiv.innerHTML = `
+                <p class="${colorClass}">
+                    <strong>[${timestamp}]</strong><br>
+                    ${message.replace(/\n/g, '<br>')}
+                </p>
+                <hr>
+            ` + outputDiv.innerHTML;
+        }
+
+        // Проверка авторизации при загрузке
+        window.onload = function() {
+            checkAuth();
+        };
+    </script>
+</body>
+</html>
