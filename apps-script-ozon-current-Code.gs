@@ -76,11 +76,11 @@ function normFraction(v) {
   return x;
 }
 
-// Минимальный валидный СПП из колонки J, только по строкам ГДЕ ЕСТЬ индекс цен.
-// Используется как fallback для товаров без индекса.
+// Средний валидный СПП из колонки J, только по строкам ГДЕ ЕСТЬ индекс цен (реальные данные).
+// Используется как fallback для товаров без индекса: в J всегда пишется средний СПП.
 // rowsIdx — индекс колонки N (price index) в массиве vals (col N = idx 12 при чтении с B).
-function minSppFromRows(rows, sppIdx, idxCol) {
-  var minSpp = 0;
+function avgSppFromRows(rows, sppIdx, idxCol) {
+  var sum = 0, cnt = 0;
   if (!rows) return 0;
   for (var i = 0; i < rows.length; i++) {
     // Только строки с валидным индексом цен
@@ -89,9 +89,9 @@ function minSppFromRows(rows, sppIdx, idxCol) {
       if (!(pIdx > 0)) continue;
     }
     var spp = normFraction(rows[i][sppIdx]);
-    if (spp > 0 && (minSpp === 0 || spp < minSpp)) minSpp = spp;
+    if (spp > 0 && spp <= 0.95) { sum += spp; cnt++; } // >0.95 = мусор, не учитываем
   }
-  return minSpp;
+  return cnt > 0 ? sum / cnt : 0;
 }
 
 function ozonApi(endpoint, body) {
@@ -594,15 +594,21 @@ function getOzonPrices() {
   }
 
   // J = idx 8 при чтении с B, N (индекс) = idx 12
-  var fallbackSpp = minSppFromRows(vals, 8, 12); // J, фильтр по N (индекс)
+  var fallbackSpp = avgSppFromRows(vals, 8, 12); // средний СПП по строкам с индексом
   if (fallbackSpp > 0) {
-    // Применяем fallback ко всем строкам где СПП = 0: без индекса ИЛИ с мусорной ценой (cap 0.95)
+    var fallbackRounded = Math.round(fallbackSpp * 10000) / 10000;
+    var fallbackApplied = 0;
     for (var ri = 0; ri < n; ri++) {
-      var curSpp = parseFloat(vals[ri][8]);
-      if (!curSpp || curSpp <= 0) {
-        vals[ri][8] = Math.round(fallbackSpp * 10000) / 10000; // J
+      var hasIdx = parseFloat(vals[ri][12]) > 0; // N — индекс есть
+      var hasSpp = parseFloat(vals[ri][8]) > 0;  // J — валидный СПП
+      // Без индекса — ВСЕГДА перезаписываем средним (старые/застрявшие значения не мешают).
+      // С индексом, но СПП = 0 (cap 0.95, мусорная цена API) — тоже средний.
+      if (!hasIdx || !hasSpp) {
+        vals[ri][8] = fallbackRounded; // J
+        fallbackApplied++;
       }
     }
+    Logger.log('Fallback СПП (средний ' + fallbackRounded + ') применён к строкам: ' + fallbackApplied);
   } else {
     Logger.log('WARNING: fallback СПП = 0, нет ни одной строки с индексом и валидным СПП');
   }
@@ -694,8 +700,8 @@ function calculatePrices() {
 
   // Читаем B..U (cols 2..21): idx = col - 2
   var vals = sheet.getRange(2, 2, n, 20).getValues();
-  // Только строки с индексом (N = idx 12) и валидным СПП
-  var fallbackSpp = minSppFromRows(vals, 8, 12); // J, фильтр по N (индекс)
+  // Средний СПП по строкам с индексом (N = idx 12) — fallback для товаров без индекса
+  var fallbackSpp = avgSppFromRows(vals, 8, 12); // J, фильтр по N (индекс)
 
   var updated = 0;
   for (var i = 0; i < n; i++) {
