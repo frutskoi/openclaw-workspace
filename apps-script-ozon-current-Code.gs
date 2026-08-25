@@ -68,6 +68,16 @@ function getUpdateThreshold() {
 }
 
 // Нормализация дробного процента: 0.08 → 0.08, 8 → 0.08, мусор → 0.
+// Безопасный парсер чисел: «4 024», «1 953», «2 730,5», «1 953» → число.
+// parseFloat на таком тексте обрезает по пробелу и даёт 4, 1, 2 → мусорная цена.
+function toNum(v) {
+  if (typeof v === 'number') return isFinite(v) ? v : 0;
+  if (v === null || v === undefined) return 0;
+  var s = String(v).replace(/[\u00a0 ]/g, '').replace(',', '.').replace(/[^0-9.\-]/g, '');
+  var x = parseFloat(s);
+  return isNaN(x) ? 0 : x;
+}
+
 function normFraction(v) {
   var x = parseFloat(v);
   if (isNaN(x) || x <= 0) return 0;
@@ -554,6 +564,9 @@ function getOzonPrices() {
 
     var sellerPrice = parseFloat(pd.price.price) || 0;
     vals[i][7] = pd.price.price || ''; // I
+    // H — мин. цена с Ozon (если продавец задал её в кабинете)
+    var apiMinPrice = toNum(pd.price.min_price);
+    if (apiMinPrice > 0) vals[i][6] = apiMinPrice; // H
     sPrice++;
 
     var v5idx = pd.price_indexes || {};
@@ -613,9 +626,9 @@ function getOzonPrices() {
     Logger.log('WARNING: fallback СПП = 0, нет ни одной строки с индексом и валидным СПП');
   }
 
-  // Запись I..O (cols 9..15) одним блоком
-  var out = vals.map(function(r) { return r.slice(7, 14); });
-  sheet.getRange(2, 9, n, 7).setValues(out);
+  // Запись H..O (cols 8..15) одним блоком
+  var out = vals.map(function(r) { return r.slice(6, 14); });
+  sheet.getRange(2, 8, n, 8).setValues(out);
 
   // Остатки FBS/FBO
   loadStocksByPid(sheet, lastRow);
@@ -706,12 +719,12 @@ function calculatePrices() {
   var updated = 0;
   for (var i = 0; i < n; i++) {
     var productId = vals[i][0];                  // B
-    var rrc = parseFloat(vals[i][5]);            // G
-    var minPrice = parseFloat(vals[i][6]);       // H
-    var sellerPrice = parseFloat(vals[i][7]);    // I
-    var walletPct = normFraction(vals[i][9]);    // K
-    var walletPrice = parseFloat(vals[i][10]);   // L
-    var priceIndex = parseFloat(vals[i][12]);    // N
+    var rrc = toNum(vals[i][5]);                 // G
+    var minPrice = toNum(vals[i][6]);             // H
+    var sellerPrice = toNum(vals[i][7]);          // I
+    var walletPct = normFraction(vals[i][9]);     // K
+    var walletPrice = toNum(vals[i][10]);         // L
+    var priceIndex = toNum(vals[i][12]);          // N
     var model = (vals[i][14] || '').toString().trim(); // P
 
     if (!sellerPrice && !rrc) continue;
@@ -826,14 +839,20 @@ function uploadPrices() {
   var prices = [];
   for (var i = 0; i < n; i++) {
     var productId = vals[i][0];                 // B
-    var targetPrice = parseFloat(vals[i][16]);  // R
-    var currentPrice = parseFloat(vals[i][7]);  // I
+    var targetPrice = toNum(vals[i][16]);        // R
+    var currentPrice = toNum(vals[i][7]);        // I
     if (!productId || !targetPrice) continue;
     if (currentPrice && Math.abs(targetPrice - currentPrice) < threshold) {
       vals[i][18] = '⏭ Без изменений'; // T
       continue;
     }
-    prices.push({ product_id: productId, price: targetPrice, idx: i });
+    // Цена до скидки: если новое предложение сильно ниже текущей (>=50%),
+    // Ozon отклоняет без old_price — передаём текущую цену как old_price.
+    var item = { product_id: productId, price: targetPrice.toString() };
+    if (currentPrice && targetPrice < currentPrice * 0.5) {
+      item.old_price = Math.round(currentPrice).toString();
+    }
+    prices.push({ product_id: productId, price: targetPrice, idx: i, item: item });
   }
 
   if (prices.length === 0) {
@@ -863,7 +882,7 @@ function uploadPrices() {
   for (var bi = 0; bi < prices.length; bi += 100) {
     var batch = prices.slice(bi, bi + 100);
     var result = ozonApi('/v1/product/import/prices', {
-      prices: batch.map(function(p) { return { product_id: p.product_id, price: p.price.toString() }; })
+      prices: batch.map(function(p) { return p.item; })
     });
 
     // Карта результата: product_id → { updated, error }
