@@ -1371,8 +1371,20 @@ function loadUnitEconomics() {
     }
   }
 
-  // 3. Комиссии из API
+  // 3. Комиссии из API + список активных (не в архиве) товаров
   var priceMap = {};
+  var activePids = {};
+  var listLast = '';
+  while (true) {
+    var lst = ozonApi('/v3/product/list', { filter: { visibility: 'ALL' }, limit: 100, last_id: listLast });
+    if (!lst || !lst.result) break;
+    var lItems = lst.result.items || [];
+    for (var li = 0; li < lItems.length; li++) {
+      if (lItems[li].product_id) activePids[lItems[li].product_id.toString()] = true;
+    }
+    listLast = lst.result.last_id || '';
+    if (lItems.length < 100 || !listLast) break;
+  }
   var cursor = '';
   while (true) {
     var result = ozonApi('/v5/product/info/prices', { filter: { visibility: 'ALL' }, cursor: cursor, limit: 100 });
@@ -1409,16 +1421,20 @@ function loadUnitEconomics() {
 
   // 6. Построить массив A..AB (28 столбцов)
   var out = [];
+  var skippedArchived = 0;
   for (var i = 0; i < pids.length; i++) {
     var pid = pids[i].pid;
     var rep = repData[pid];
     if (!rep) continue;
+    // Пропускаем товары, которых нет в списке активных (архив)
+    if (!activePids[pid]) { skippedArchived++; continue; }
 
     var row = new Array(28).fill('');
     var pd = priceMap[parseInt(pid)];
     var ref = refData[pid];
     var md = manualData[pid] || {};
-    var scheme = md.scheme || ((rep.fbo && rep.fbo > 0) ? 'FBO' : 'FBS');
+    // Расчёт всегда по модели FBS (решение Босса 2026-08-31)
+    var scheme = 'FBS';
 
     row[0] = rep.offerId;     // A
     row[1] = parseInt(pid);   // B
@@ -1467,13 +1483,12 @@ function loadUnitEconomics() {
       row[13] = firstMile; // N
       row[14] = acq;       // O
 
-      if (md.adv) row[15] = md.adv;   // P
+      row[15] = md.adv ? md.adv : Math.round(salePrice * 10) / 100;
       if (md.pack) row[16] = md.pack; // Q
-      if (md.tax) row[17] = md.tax;   // R
+      // R — налог: ручное значение или 7% от цены (УСН)
+      row[17] = md.tax ? md.tax : Math.round(salePrice * 7) / 100;
 
-      // T — доход баллы = E * S (доля)
-      var pointsIncome = salePrice * rep.spp;
-      row[19] = Math.round(pointsIncome * 100) / 100;
+      // T — доход баллы: НЕ в расчёте (по решению Босса 2026-08-31)
 
       // U — итого расходы Ozon
       var logWithBuyback = (buyback > 0) ? (logForward + lastMile) / buyback : (logForward + lastMile);
@@ -1487,17 +1502,16 @@ function loadUnitEconomics() {
       var totalCost = totalOzon + cogs + advCost + packCost + taxCost;
       row[21] = Math.round(totalCost * 100) / 100;
 
-      // W — прибыль = E - V + T
-      var profit = salePrice - totalCost + pointsIncome;
+      // W — прибыль = E - V (баллы НЕ учитываются)
+      var profit = salePrice - totalCost;
       row[22] = Math.round(profit * 100) / 100;
 
       // X — маржинальность %
       var margin = salePrice > 0 ? (profit / salePrice * 100) : 0;
       row[23] = Math.round(margin * 100) / 100;
 
-      // Y — безубыток = V / (1 + S), S — доля СПП
-      var sppFrac = rep.spp || 0;
-      var minPrice = (sppFrac > 0) ? totalCost / (1 + sppFrac) : totalCost;
+      // Y — безубыток = V (баллы НЕ учитываются)
+      var minPrice = totalCost;
       row[24] = Math.round(minPrice * 100) / 100;
 
       // Z — объёмный вес
@@ -1513,8 +1527,8 @@ function loadUnitEconomics() {
   if (lastRow > 1) sheet.getRange(2, 1, lastRow - 1, 28).clearContent();
   if (out.length > 0) sheet.getRange(2, 1, out.length, 28).setValues(out);
 
-  logAction('Юнит экономика', 'ОК', 'Загружено: ' + out.length);
-  showAlert('Готово', 'Юнит экономика рассчитана: ' + out.length + ' артикулов');
+  logAction('Юнит экономика', 'ОК', 'Загружено: ' + out.length + ' (пропущено архивных: ' + skippedArchived + ')');
+  showAlert('Готово', 'Юнит экономика рассчитана: ' + out.length + ' артикулов (архив пропущен: ' + skippedArchived + ')');
 }
 // =====================================================================
 // 7. ABC-анализ за последний квартал
