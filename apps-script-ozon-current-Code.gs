@@ -1485,8 +1485,8 @@ function loadUnitEconomics() {
 
       row[15] = md.adv ? md.adv : Math.round(salePrice * 10) / 100;
       if (md.pack) row[16] = md.pack; // Q
-      // R — налог: ручное значение или 7% от цены (УСН)
-      row[17] = md.tax ? md.tax : Math.round(salePrice * 7) / 100;
+      // R — налог: ручное значение или 8% от цены (УСН)
+      row[17] = md.tax ? md.tax : Math.round(salePrice * 8) / 100;
 
       // T — доход баллы: НЕ в расчёте (по решению Босса 2026-08-31)
 
