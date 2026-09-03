@@ -1466,7 +1466,10 @@ function loadUnitEconomics() {
         firstMile = 0;
       } else {
         salesPct = parseFloat(comm.sales_percent_fbs) || 0;
-        logForward = parseFloat(comm.fbs_direct_flow_trans_max_amount) || 0;
+        // средний тариф магистрали (max+min)/2, т.к. max — дальняя зона
+        var fbsMax = parseFloat(comm.fbs_direct_flow_trans_max_amount) || 0;
+        var fbsMin = parseFloat(comm.fbs_direct_flow_trans_min_amount) || 0;
+        logForward = Math.round((fbsMax + fbsMin) / 2 * 100) / 100;
         logReturn = parseFloat(comm.fbs_return_flow_amount) || 0;
         lastMile = parseFloat(comm.fbs_deliv_to_customer_amount) || 0;
         firstMile = parseFloat(comm.fbs_first_mile_max_amount) || 0;
@@ -1475,10 +1478,12 @@ function loadUnitEconomics() {
       row[6] = salesPct; // G
       var commissionRub = salePrice * salesPct / 100;
       row[7] = Math.round(commissionRub * 100) / 100; // H
-      row[8] = logForward; // I
-      row[9] = logReturn;  // J
-      var returnCost = (buyback > 0 && buyback < 1) ? logReturn * (1 - buyback) / buyback : 0;
-      row[11] = Math.round(returnCost * 100) / 100; // L
+      row[8] = logForward; // I — средний тариф магистрали туда
+      row[9] = logReturn;  // J — тариф обратной логистики (справочно)
+      // Невыкуп по FBS остаётся на складе Ozon — обратной перевозки к продавцу нет,
+      // расход на возвраты = 0 (решение Босса 2026-09-02)
+      var returnCost = 0;
+      row[11] = 0; // L
       row[12] = lastMile;  // M
       row[13] = firstMile; // N
       row[14] = acq;       // O

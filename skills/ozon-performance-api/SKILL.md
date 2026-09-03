@@ -26,4 +26,5 @@ description: "Ozon Performance API: authenticate, fetch SKU ad spend reports, co
 
 ## Известные грабли
 - Seller API `/v1/analytics/data` старые метрики (hits_view_search, ordered_units_value и т.п.) → 400 «deprecated metrics used». Не трать попытки — ищи актуальный список метрик в доках.
+- Тарифы логистики FBS из `/v5/product/info/prices`: `fbs_return_flow_amount` у всех товаров численно равен `fbs_direct_flow_trans_max_amount` — это тарификация Ozon, а не дубль в расчёте. Для юнит-экономики бери «туда» = (max+min)/2 (max — только дальняя зона, завышает расходы на 30–50%), «обратно» = `fbs_return_flow_amount` как есть.
 - Seller API ключ и Performance Client ID/Secret — независимые учётки; Seller ключ в «Настройки» таблицы, Performance секрет — только в защищённое хранилище.
