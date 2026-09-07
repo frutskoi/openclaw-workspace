@@ -1488,10 +1488,13 @@ function loadUnitEconomics() {
       row[13] = firstMile; // N
       row[14] = acq;       // O
 
-      row[15] = md.adv ? md.adv : Math.round(salePrice * 10) / 100;
-      if (md.pack) row[16] = md.pack; // Q
-      // R — налог: ручное значение или 8% от цены (УСН)
-      row[17] = md.tax ? md.tax : Math.round(salePrice * 8) / 100;
+      // P — реклама: ВСЕГДА 10% от текущей цены.
+      // md.adv больше не читаем: старые авто-значения в P ошибочно считались
+      // ручными и не пересчитывались при смене цены (баг 2026-09-07).
+      row[15] = Math.round(salePrice * 10) / 100;
+      if (md.pack) row[16] = md.pack; // Q — упаковка: единственная ручная колонка расходов
+      // R — налог: ВСЕГДА 8% от текущей цены (УСН)
+      row[17] = Math.round(salePrice * 8) / 100;
 
       // T — доход баллы: НЕ в расчёте (по решению Босса 2026-08-31)
 
@@ -1501,9 +1504,9 @@ function loadUnitEconomics() {
       row[20] = Math.round(totalOzon * 100) / 100;
 
       // V — итого расходы все
-      var advCost = parseFloat(md.adv) || 0;
+      var advCost = row[15];   // 10% от текущей цены
       var packCost = parseFloat(md.pack) || 0;
-      var taxCost = parseFloat(md.tax) || 0;
+      var taxCost = row[17];   // 8% от текущей цены
       var totalCost = totalOzon + cogs + advCost + packCost + taxCost;
       row[21] = Math.round(totalCost * 100) / 100;
 
