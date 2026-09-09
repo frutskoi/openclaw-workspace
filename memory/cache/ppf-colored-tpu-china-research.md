@@ -8,7 +8,8 @@
 | # | Фабрика / бренд | Город, провинция, год | Специализация | Цветной TPU | OEM/ODM | Цена/MOQ | Серт. | РФ |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Carlas (Hangzhou Carlas New Material) | Ханчжоу/Цзясин, Чжэцзян; торг. с 1998, фабрика с 2000 | Color PPF фокус, была PVC-wrap база (3000+ цветов); ~450 сотрудников | Да, лидер: 200+ цветов РФ-каталог, 320+ у дилеров; 2-слойная (бюджет) и 3-слойная (топкоут) технологии | Да, ODM: эксклюзивные цвета/формулы под марку | ~10 рулонов MOQ (сообщ. KPPF); цветной дороже прозрачного, н/д точно | н/д (заявл. контроль по собственным ТУ) | ДА — доминирование: 80–90% рынка цветного PPF РФ; дилеры (oversall.ru и др.) |
-| 2 | NKODA / NAR (NAR Industry / Nkoda New Materials) | Чанчжоу, Цзянсу; осн. ~2011 | Полный цикл (гранулы→TPU→топкоут); крупнейший OEM | Да (NAR Color TPU Film) | Да, крупнейший OEM-подрядник (десятки брендов, в т.ч. часть «европейских») | Высокие MOQ (~контейнер), очередь 2–3 мес.; прайс для иностранцев +30% | н/д; патенты CN (ZL201510359759.3 и др. — с сайта nar-ppf) | ДА — бренд NAR PPF активно в РФ/СНГ (nar-ppf.ru, .kz), т.е. свой бренд уже представлен |
+| 2 | NAR (Shanghai NAR Industrial Co., Ltd) — ВНИМАНИЕ: ≠ NKODA, см. «Волна 3» | Шанхай (2 завода) + Наньтун, Цзянсу; осн. 2002, с 2016 листинг Шэньчжэня (тикер NAR) | Полный цикл (собств. запатентованное сырьё→TPU→топкоут); бренды NAR PPF и Formula PPF | Да (NAR Color TPU Film) | Да, крупный OEM-подрядник | Высокие MOQ, очередь 2–3 мес. (по kppf) | Патенты CN (в т.ч. CN107629709A) | ДА — nar-ppf.ru/.kz, formulappf.ru |
+| 2a | NKODA (Nantong NKODA Polyurethane Technology Co., Ltd) — ОТДЕЛЬНАЯ компания | Наньтун, Цзянсу (офис Шанхай); 170 сотр., из них 20 исследователей-докторов | Технологич. компания: алифатическая TPU-основа (1 произв. база + 3 R&D-центра) — поставляет TPU-базу другим PPF-брендам | Да (ISF Color PPF) | Да | н/д | 5 патентов (Alibaba VP) | ДА — бренд NKODA продаётся в РФ (Avito) |
 | 3 | BOP (Zhejiang Bomei / Bomei New Materials) | Хучжоу/Ханчжоу, Чжэцзян; пионер рынка (осн. ~2011) | PPF полный цикл, патенты на лаки | Да: матовые, чёрные, цветные серии | Да | Премиум-цены («мировой премиум»); MOQ н/д | н/д | Да, возит в РФ; собственный сильный бренд |
 | 4 | Hengning Film (Zhejiang Hengning) | Чжэцзян (н/д город); ~2010-е | База TPU (кастинг), гранулы Lubrizol/BASF | Ограниченно (фокус на прозрачной базе) | Да (продают базу другим) | Очень высокие MOQ, с мелкими не работают | н/д | Косвенно (через бренды РФ) |
 | 5 | UPPF (Shanghai Kunyan / UPPF International; офисы Сингапур/США/Тайвань/Индонезия) | Шанхай (произв. базы в Китае); 27 лет опыта (заявл. ~1998) | PPF, Texture PPF серии; R&D in-house | Да (Texture/цветные серии на uppf.lt) | Да (сайт направлен на B2B/дилерство) | н/д | н/д | Бренд продаётся в ЕС/Азии; в РФ н/д официально |
@@ -105,3 +106,69 @@
 - ru.made-in-china.com/co_{zhenhuifilm, ziruicarfilm, genernano, kd-ppf, sunvisionfilm, huizhi-ppf, mojiaxin, zerodistance, umifilm, highcoolcarfilm, nanoppf, chameleonppf, mcloakfilm, koofilm, dmiswindowfilm, colorcardfilm, tsautop, projector-len, newvision888} — профили компаний
 - kppf.ru/top-10-proizvoditelej-poliuretanovoj-plenki-v-kitae/ — Tier 1–3 (Tianxing, Yonghong, Tunsing добавлены из Tier 2/3)
 - sunmaxfilms.ru — анализ бренда Sunmax (РФ-студия, не завод)
+
+## Волна 3: полный цикл + верификация (2026-09-08)
+
+### Верификация NAR ≠ NKODA (поправка заказчика подтверждена)
+
+Заказчик прав: **NAR и NKODA — РАЗНЫЕ компании**. Ошибка возникла из-за kppf.ru, который в своих обзорах пишет «Nar (Nkoda)» и «NKODA (Nar Group)» — это неточность/объединение маркетингового характера. Факты:
+
+**1. Shanghai NAR Industrial Co., Ltd (纳尔股份, NAR Industrial):**
+- Осн. 2002 (NAR International), завод в Шанхае с 2005, второй завод в Наньтуне (100 000 м²) с 2010, северный район Шанхая с 2015.
+- С 2016 — листинг на Шэньчжэньской бирже (аббревиатура акции: NAR), т.е. публичная компания.
+- 2017: запуск бренда PPF + линия прецизионных покрытий класса 10000; 2020: бренд «NAR PPF», 3 линии покрытий, 20 000 рулонов/мес, 6 млн м²/год (официальная история с nar-ppf.ru).
+- Разработчик брендов **Formula PPF** и **NAR PPF** («Материал разработан НИОКР Shanghai NAR Industrial Co., Ltd. Производство полного цикла, использование собственного запатентованного сырья» — formulappf.ru).
+- Профиль: nar.en.alibaba.com (Car Window Film, Sunroof Armour, Auto Interior Film, PPF).
+- **Не имеет отношения к NKODA.**
+
+**2. Nantong NKODA Polyurethane Technology Co., Ltd (恩科达, Наньтун, Цзянсу):**
+- Технологическая компания по ТПУ-эластомерам: 170 сотрудников, 20 — докторский исследовательский коллектив; 1 база производства алифатической TPU + 3 R&D-центра; операционный центр в Шанхае, производство в Наньтуне (профиль ru.made-in-china.com/co_raoyii/).
+- 5 патентов, Alibaba Verified Producer 6 лет (nkoda.en.alibaba.com), продукты: TPU/PET плёнка, ISF Color PPF Film.
+- Поставляет алифатическую TPU-основу другим производителям плёнок (вероятно, в т.ч. для PPF-брендов РФ — бренд «Nkoda premium 190» продаётся на Avito).
+
+**3. Nanolink (Shanghai Nanolink Materials Co., Ltd):**
+- **Отдельная компания**, НЕ NKODA и НЕ NAR: 215 сотрудников, 12 лет экспорта, 30 450 м², 1 собственная производственная линия TPU/PET-плёнки, 20 QA/QC-инспекторов (Alibaba Verified: nanolink.en.alibaba.com). HQ Шанхай, продукция: цветная PPF, TPU PPF, PET window film; бренды Nanolink и Isffilm (стенд DDExpo '24, t.me/detailerdayexpo).
+- Связь «Nkoda ↔ Nanolink» в открытых источниках НЕ подтверждается: разные юрлица, разные Alibaba-сторы, разные производственные профили. Вероятно, заказчик имел в виду фонетическое сходство. Nanolink остаётся отдельной позицией №8.
+
+**Итог правки таблицы:** строка №2 разделена: №2 = NAR Industrial (Шанхай/Наньтун, Formula PPF/NAR PPF), №2a = NKODA (Наньтун, TPU-основа). Nanolink — №8 без изменений, отдельная компания. Город «Чанчжоу» из старой строки №2 не подтверждён ни для одной из компаний — удалён.
+
+### Перепроверка оценки «~15 заводов полного цикла»
+Оценка «не более 15» — это маркетинговое утверждение KPPF (kppf.ru/top-10). Реально в открытом доступе идентифицируется **15–20+ производителей полного цикла** (кастинг/экструзия TPU + коутинг): Tier1 kppf (Hengning, NKODA, BOP, Sanyou), Carlas, NAR Industrial, Dingxin (Fenyang), Xuancar (1 TPU-casting + 2 coating), Jiangsu Kailong/KD-PPF («Fully-Industry-Chain»), Nanolink, UPPF, UMore, Morthink, SeeHo (Пинху) и др. Китайские рейтинг-статьи по запросам («隐形车衣 全产业链 工厂») через доступные поисковики сейчас не индексируются — кандидаты ZHONGHE/POLYSIGN, COLORMAX/Yeehui, Hangzhou SHINE, HZ Sunny, Wanwei, Changzhou Sennasi **не верифицированы** по открытым источникам (низкое качество поисковой выдачи) — проверять на выставке Canton Fair / через QCC напрямую.
+
+### Новые фабрики (волна 3)
+
+| # | Фабрика | Город | Профиль | Источник |
+|---|---|---|---|---|
+| 38 | Nantong NKODA Polyurethane Technology (恩科达) | Наньтун, Цзянсу | TPU-основа полного цикла (см. выше, = №2a) | nkoda.en.alibaba.com |
+| 39 | SeeHo Film Co., Ltd (завод бренда TERMINAX) | Пинху, Чжэцзян | 12 000 м², 500 000 рулонов/год (до 1 млн), PPF/тонировка/фары/цветные; «американский» бренд TERMINAX — маркетинговая оболочка этого завода | terminax.store, seeho.en.alibaba.com |
+| 40 | Carlas — заводской адрес уточнён | Чжаоцин, Гуандун (не Ханчжоу!) | No. 6 Gutang North Road, Dawang High-tech Zone, Zhaoqing; тел. завода +86 150 1324 4902; Alibaba-стор carlaswrap.en.alibaba.com | carlaswrap.com/ru |
+
+Примечание: адрес завода Carlas в Чжаоцине (Гуандун) противоречит строке №1 (Ханчжоу/Цзясин) — вероятно, несколько площадок или перенос производства; уточнять у завода напрямую.
+
+### Контакты по фабрикам (волна 3)
+
+Приоритет: WeChat > email > WhatsApp/форма. Реальные WeChat ID китайские заводы на публичных сайтах почти не публикуют (обычно QR-код картинки, недоступный текстовому fetching); основной рабочий канал — Alibaba Message Center / MIC TradeMessenger.
+
+| Фабрика | Контакт | Тип |
+|---|---|---|
+| Carlas | +86 150 1324 4902 (завод), admin@carlaswrap.com, wa.me/8615013244902; РФ-офис carlas.pro +7 917 140 95 56 (WA/TG) | тел.+email+WhatsApp |
+| NAR Industrial | nar.en.alibaba.com → Message Center (форма); бренд-сайты nar-ppf.ru / formulappf.ru без публичного email | Alibaba-форма |
+| NKODA | nkoda.en.alibaba.com → Message Center; ru.made-in-china.com/co_raoyii/ → TradeMessenger | Alibaba/MIC-форма |
+| Nanolink | nanolink.en.alibaba.com → Message Center (ответ ≤6 ч) | Alibaba-форма |
+| Morthink | +86 191 2065 5463 (WhatsApp wa.me/8619120655463), moshiex@morthinks.com; Qingxin District, Qingyuan City, Guangdong | WhatsApp+email |
+| UMore Film | ppfcolor.com → контактная форма (страница /contact-us даёт 404, писать через форму на главной); Alibaba: umore store → Message Center | форма |
+| SeeHo Film | seeho.en.alibaba.com → Message Center | Alibaba-форма |
+| Hengning, BOP, UPPF, Sanyou, Dingxin, Xuancar, SKS, Yuxin, Boke, Spro и все №16–37 | н/д — публичных email/WeChat на сайтах нет; писать через MIC-профили (см. ссылки в таблицах волн 1–2) или Alibaba-Message Center | MIC/Alibaba-форма |
+
+**Итог по контактам:** найдено прямых контакта 3 из ~40: Carlas (телефон завода +86 15013244902 + email admin@carlaswrap.com), Morthink (WhatsApp +86 19120655463 + email moshiex@morthinks.com), Carlas РФ (+7 917 140 95 56). WeChat ID в текстовом виде не опубликован ни одним заводом — WeChat получают по запросу в Alibaba/MIC-чате (стандартная практика: менеджер присылает QR после первого сообщения).
+
+### Источники (волна 3)
+- nar-ppf.ru (хронология NAR Industrial 2002–2020, листинг, мощности)
+- formulappf.ru (Formula PPF = разработка Shanghai NAR Industrial)
+- nkoda.en.alibaba.com + ru.made-in-china.com/co_raoyii/ (Nantong NKODA Polyurethane Technology: 170 сотр., TPU-основа)
+- nanolink.en.alibaba.com/company_profile.html (Nanolink: 215 сотр., 30 450 м², 1 линия TPU/PET)
+- t.me/detailerdayexpo/3499 (Nanolink/Isfffilm на DDExpo '24)
+- kppf.ru/sravnenie-... и /top-10-... (источник ошибки «Nar (Nkoda)»; оценка «~15 заводов полного цикла» — маркетинг KPPF)
+- carlaswrap.com/ru (завод Carlas: Чжаоцин, Гуандун; тел. +86 15013244902; admin@carlaswrap.com)
+- morthinks.com/contact (Morthink: WhatsApp, email, адрес Цинъюань, Гуандун)
+- terminax.store + seeho.en.alibaba.com (завод SeeHo, Пинху)
