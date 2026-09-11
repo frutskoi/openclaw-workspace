@@ -100,6 +100,13 @@ Rows are already signed (deductions negative) — check sign before summing.
 
 - `401` bad/expired or wrong token type; `403` token lacks API category; `404` endpoint removed (check deprecated list); `204` no data; `429` global rate limit.
 
+## Apps Script Deploy & Run (gateway, 2026-09-10)
+
+- Update remote Apps Script code via `script.projects().updateContent(scriptId, {files})` — the API object has no `.update` method.
+- `scripts.run` fails NOT_FOUND unless the project has an API-executable deployment; `deployments.create` then fails 403 ACCESS_TOKEN_SCOPE_INSUFFICIENT with the gateway token. Don't chase headless runs: ship `onOpen` menu items and have the user trigger from the sheet.
+- Server-side WB API calls hit 429 immediately regardless of backoff (IP is blocked); only Apps Script `UrlFetchApp` reaches statistics-api reliably.
+- `setValues` with `"=..."` strings writes them as formulas in Apps Script — no need for per-cell `setFormula`, but per-cell is safe for template rows mixed with labels.
+
 ## Validation Checklist
 
 Before calling an automation ready:
@@ -109,3 +116,5 @@ Before calling an automation ready:
 4. One small period (e.g. one week) run first, row count and fields verified.
 5. `X-Ratelimit-Remaining` checked.
 6. COGS lookup keys match the `Справочник` columns.
+7. Weekly-report "База" sheets accumulate, never clear: append only rows with `rrd_id` > stored max (Настройки setting), extend report sheets under new barcodes/articles, merge COGS sheets without overwriting manual cost edits.
+8. Bulk formula writes to Sheets: write 500-row chunks with `SpreadsheetApp.flush()`, size sheets to actual unique keys, and bound full-column refs (`База!X:X` → `База!$X$2:$X$N`) — otherwise Sheets throws "Сервис 'Таблицы' слишком долго не может получить доступ" (recalc timeout).
