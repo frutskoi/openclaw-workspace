@@ -313,6 +313,7 @@ Maybe memory works like this too: we push our days somewhere quiet, trusting the
 
 ## Deep Sleep
 <!-- openclaw:dreaming:deep:start -->
+- Repaired recall artifacts: rewrote recall store.
 - Ranked 0 candidate(s) for durable promotion.
 - Promoted 0 candidate(s) into MEMORY.md.
 <!-- openclaw:dreaming:deep:end -->
