@@ -1,3 +1,8 @@
+---
+name: "gmail"
+description: "Работа с Gmail API: чтение, отправка, поиск, управление почтой."
+---
+
 # Gmail Skill
 
 ## Purpose

@@ -1,3 +1,8 @@
+---
+name: "calendar"
+description: "Работа с Google Calendar API: события, встречи, напоминания."
+---
+
 # Calendar Skill
 
 ## Purpose

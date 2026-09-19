@@ -1,3 +1,8 @@
+---
+name: "ozon-api"
+description: "Ozon Seller API (v2/v3/v5): интеграции и операции с API Ozon для продавцов."
+---
+
 # Ozon Seller API Skill
 
 **Проверено:** 2026-06-01  

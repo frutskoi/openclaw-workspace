@@ -1,3 +1,8 @@
+---
+name: "puter-api"
+description: "Puter API integration (документация: https://docs.puter.com)."
+---
+
 # Puter API Skill
 
 ## 📋 Общая информация

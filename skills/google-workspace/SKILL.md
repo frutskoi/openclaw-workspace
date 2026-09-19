@@ -1,3 +1,8 @@
+---
+name: "google-workspace"
+description: "Full Google Workspace integration for OpenClaw with OAuth2 authorization."
+---
+
 # Google Workspace Skill
 
 Full Google Workspace integration for OpenClaw with OAuth2 authorization.
