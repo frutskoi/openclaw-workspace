@@ -41,3 +41,5 @@ Thumbs.db
 *.tmp
 *.bak
 *.backup
+# Large binaries / installers (GitHub 100MB limit)
+*.exe
