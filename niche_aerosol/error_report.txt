@@ -1,0 +1,25 @@
+ОТЧЁТ ОБ ОШИБКЕ: niche_scan.py
+Дата запуска: 2026-09-23 ~12:41 UTC (хост youthful-amarant.ptr.network)
+Итог: TOTAL 0 — данные не получены. Ни один запрос не дошёл до HTTP-ответа.
+
+== Точный вывод скрипта (stdout, verbatim) ==
+aerozolnyy-kley page 1 ERR URLError(TimeoutError('_ssl.c:983: The handshake operation timed out'))
+aerozolnyy-kley items: 0
+aerozolnyy-kley-universal page 1 ERR URLError(TimeoutError('_ssl.c:983: The handshake operation timed out'))
+aerozolnyy-kley-universal items: 0
+kley-dlya-shumoizolyacii page 1 ERR URLError(TimeoutError('_ssl.c:983: The handshake operation timed out'))
+kley-dlya-shumoizolyacii items: 0
+aerozolnyy-kley-avto page 1 ERR URLError(TimeoutError('_ssl.c:983: The handshake operation timed out'))
+aerozolnyy-kley-avto items: 0
+TOTAL 0
+
+== Повторный одиночный пробой (curl, те же заголовки, 2026-09-23 ~12:45 UTC) ==
+DNS: www.ozon.ru -> 185.73.194.82, 185.73.193.68 (резолвится нормально)
+API composer-api.bx: curl: (28) Connection timed out after 8001 milliseconds | HTTP_CODE:000 SIZE:0 TIME:8.001887s
+Базовая страница https://www.ozon.ru/: curl: (28) Connection timed out after 8002 milliseconds | HTTP_CODE:000 TIME:8.002369s
+
+== Диагноз ==
+TLS-рукопожатие с www.ozon.ru не устанавливается с этого хоста: таймаут на уровне TCP/TLS-соединения, до HTTP-статуса дело не доходит. Это НЕ 403 и не antibot-страница — ответного тела нет вообще (SIZE:0). DNS работает, исходящий интернет на хосте есть (сам запрос уходил и висел до таймаута). Вероятная причина: блокировка/дроп соединений с IP данного датацентра на стороне Ozon (типовой антибот на уровне соединения) либо фильтрация на исходящем маршруте хоста.
+
+== debug_*.json ==
+Не созданы. Скрипт сохраняет debug-файл только при УСПЕШНОМ HTTP-ответе без распарсенных товаров; здесь ответов нет вовсе (исключение на этапе соединения), поэтому «первая страница ответа» физически отсутствует — сохранять нечего. Точная ошибка приведена выше.

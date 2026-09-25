@@ -1,0 +1,1 @@
+vless://eeb57db5-8a18-4d05-9971-61b004f00180@kozhzam-vpn.duckdns.org:2053?encryption=none&security=tls&sni=kozhzam-vpn.duckdns.org&type=xhttp&host=kozhzam-vpn.duckdns.org&path=%2Fkozhzam-xhttp&mode=auto#KozhZam-Direct-XHTTP-2053
