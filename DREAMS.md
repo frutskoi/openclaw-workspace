@@ -1063,6 +1063,7 @@ Outside, the rain fell in a soft gray, maybe #A9A9A9, and each drop negotiated i
 
 ## Deep Sleep
 <!-- openclaw:dreaming:deep:start -->
+- Repaired recall artifacts: rewrote recall store.
 - Ranked 1 candidate(s) for durable promotion.
 - Promoted 0 candidate(s) into MEMORY.md.
 <!-- openclaw:dreaming:deep:end -->
