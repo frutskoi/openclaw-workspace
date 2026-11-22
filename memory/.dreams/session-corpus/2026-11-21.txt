@@ -1,0 +1,1 @@
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2109] Assistant: Ежедневный бэкап выполнен успешно (21.11.2026, 03:00 UTC): - **Workspace** — закоммичен и запушен в git ✅ (push прошёл без ошибок авторизации) - **Gateway config** — сохранён локально: `/home/clawd/.openclaw/backups/openclaw-2026-11-21.json` (в git не пушится — содержи
