@@ -1,0 +1,6 @@
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2274] Assistant: Backup completed successfully ✅ - **Script:** `daily_backup.sh` — exit code 0 - **Git:** workspace committed and pushed to `origin/master` (commit `1cb4a82` "Auto-backup: workspace sync 2026-11-26"), branch in sync with remote - **Config:** backed up to `/home/clawd/.o
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2275] User: Почему прокси снова для телеграм не работает?
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2281] Assistant: Я тут ✅ — сервер работает, все сервисы живы. Что нужно?
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2282] User: Прокси в телеграм через ip сервера не работает!
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2288] Assistant: Проверил MTProto-прокси целиком — картина такая: **Серверная часть работает:** - mtg жив, слушает `10443`, ufw открыт ✓ - Твои попытки **доходят до сервера** (вижу сессии с твоего домашнего IP `77.222.105.250`) **Но сессии обрываются на рукопожатии** — mtg отвечает, кл
+[main/sessions/main/b9e562d5-946f-4657-8f79-bbaf5de769bb#L2288] Assistant: Telegram — могу поискать альтернативный хостинг с более чистым маршрутом, но гарантий нет.
